@@ -51,7 +51,7 @@ if(!empty($_SESSION['flash'])){
 		'description' => $description
 	);
 
-	header('Location: index.php');
+	header('Location: add.php');
 	exit();
 }
 
@@ -73,6 +73,6 @@ if($stmt->rowCount() != 0){
 		'class' => 'success',
 		'msg' => 'Contact has been successfully added'
 	]);
-	header('Location: index.php');
+	header('Location: add.php');
 	exit();
 }
