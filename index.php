@@ -9,6 +9,7 @@ $stmt->execute();
 $clients = $stmt->fetchAll(PDO::FETCH_OBJ);
 ?>
 <div class="container">
+	<h1 class="mb-4">Your client information <small class="float-end fs-4">Total: <?php echo $stmt->rowCount(); ?></small></h1>
 
 	<table id="clients" class="table">
 		<thead>
@@ -19,6 +20,7 @@ $clients = $stmt->fetchAll(PDO::FETCH_OBJ);
 	      <th scope="col">Address</th>
 	      <th scope="col">Description</th>
 	      <th scope="col">Date</th>
+	      <th scope="col">Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -30,6 +32,11 @@ $clients = $stmt->fetchAll(PDO::FETCH_OBJ);
 				<td><?php echo $client->address; ?></td>
 				<td><?php echo $client->description; ?></td>
 				<td><?php echo $client->date_created; ?></td>
+				<td>
+					<a href="#" class="btn btn-success btn-sm">View</a>
+					<a href="#" class="btn btn-primary btn-sm">Update</a>
+					<a href="#" class="btn btn-danger btn-sm">Delete</a>
+				</td>
 			</tr>
 			<?php endforeach; ?>
 		</tbody>
@@ -44,8 +51,20 @@ $clients = $stmt->fetchAll(PDO::FETCH_OBJ);
 
 <script>
 	$(document).ready( function () {
-    $('#clients').DataTable();
-} );
+    // $('#clients').DataTable();
+
+    $('#clients').dataTable( {
+		  "columns": [
+		    null,
+		    null,
+		    null,
+		    null,
+		    null,
+		    null,
+		    { "width": "18%" }
+		  ]
+		} );
+	});
 </script>
 
 <?php include './footer.php'; ?>
