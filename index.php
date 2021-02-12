@@ -114,7 +114,7 @@ $clients = $stmt->fetchAll(PDO::FETCH_OBJ);
         <form action="<?php echo htmlspecialchars('./delete.php'); ?>" method="post" id="deleteForm">
         	<input type="hidden" name="delete_id" id="delete_id" value="">				  
 				  <div class="d-flex justify-content-end">
-					  <button type="submit" class="btn btn-danger me-2" name="update">Delete Client</button>
+					  <button type="submit" class="btn btn-danger me-2" name="delete">Delete Client</button>
 					  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 					</div>
 				</form>
@@ -145,7 +145,10 @@ $clients = $stmt->fetchAll(PDO::FETCH_OBJ);
 			updateForm.querySelector('#description').value = description;
 		}
 
-
+		if(e.target.classList.contains('btn-delete-modal')){
+			console.log(e.target);
+			deleteForm.querySelector('#delete_id').value = e.target.dataset.deleteId;
+		}
 	});
 
 </script>
