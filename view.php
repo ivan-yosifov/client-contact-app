@@ -1,10 +1,6 @@
 <?php
-if($_SERVER['REQUEST_METHOD'] != 'POST'){
-	header('Location: index.php');
-	exit();
-}
 
-if(!isset($_POST['view']) || !isset($_POST['id'])){
+if(!isset($_GET['id'])){
 	header('Location: index.php');
 	exit();
 }
@@ -12,7 +8,7 @@ if(!isset($_POST['view']) || !isset($_POST['id'])){
 session_start();
 include './db.php';
 
-$id = $_POST['id'];
+$id = $_GET['id'];
 $sql = "SELECT * FROM clients WHERE id = :id LIMIT 1";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([':id' => $id]);

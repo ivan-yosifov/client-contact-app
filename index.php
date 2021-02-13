@@ -48,10 +48,7 @@ $clients = $stmt->fetchAll(PDO::FETCH_OBJ);
 				<td><?php echo $client->description; ?></td>
 				<td><?php echo $client->date_created; ?></td>
 				<td>
-					<form action="<?php echo htmlspecialchars('./view.php'); ?>" method="post" class="d-inline">
-						<input type="hidden" name="id" value="<?php echo $client->id; ?>">
-						<button type="submit" class="btn btn-success btn-sm" name="view">View</button>
-					</form>
+					<a href="./view.php?id=<?php echo $client->id; ?>" class="btn btn-success btn-sm">View</a>					
 					<button type="button" class="btn btn-primary btn-sm btn-update-modal" data-bs-toggle="modal" data-bs-target="#updateModal" data-id="<?php echo $client->id; ?>" data-name="<?php echo $client->name; ?>"  data-email="<?php echo $client->email; ?>" data-phone="<?php echo $client->phone; ?>" data-address="<?php echo $client->address; ?>" data-description="<?php echo $client->description; ?>">Update</button>
 					<button type="button" class="btn btn-danger btn-sm btn-delete-modal" data-bs-toggle="modal" data-bs-target="#deleteModal" data-delete-id="<?php echo $client->id; ?>">Delete</button>
 				</td>
