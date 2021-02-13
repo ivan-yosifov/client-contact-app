@@ -11,6 +11,13 @@ $clients = $stmt->fetchAll(PDO::FETCH_OBJ);
 <div class="container">
 	<h1 class="mb-4">Your client information <small class="float-end fs-4">Total: <?php echo $stmt->rowCount(); ?></small></h1>
 
+	<div class="d-flex">
+		<p class="lead me-3">Generate clients - </p>
+		<form action="<?php echo htmlspecialchars('./faker.php'); ?>" class="d-inline" method="post">
+			<button type="submit" class="btn btn-warning btn-sm" name="generate">Add 20 clients</button>
+		</form>
+	</div>
+
 	<?php if(isset($_SESSION['flash'])): ?>
 		<?php foreach($_SESSION['flash'] as $flash): ?>
 		<?php if($flash['class'] != 'danger'): ?>
