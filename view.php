@@ -64,10 +64,31 @@ $client = $stmt->fetch(PDO::FETCH_OBJ);
 
 	    $mail->send();
 	    echo 'Message has been sent';
+
+	    $client_id = $_GET['id'];
+	    $subject = $_POST['subject'];
+	    $message = $_POST['message'];
+	    $sql = "INSERT INTO messages (client_id, subject, message, file, date_created) VALUES (:client_id, :subject, :message, :file, :date_created)";
+	    $stmt = $pdo->prepare($sql);
+	    $stmt->execute([
+	    	':client_id' => $client_id,
+	    	':subject' => $subject,
+	    	':message' => $message,
+	    	':file' => $path,
+	    	':date_created' => date('Y-m-d')
+	    ]);
 		} catch (Exception $e) {
 		    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 		}
 	}
+
+	// get messages if any
+	$sql = "SELECT * FROM messages WHERE client_id = :id";
+	$stmt = $pdo->prepare($sql);
+	$stmt->execute([':client_id' => $_GET['id']]);
+
+	$messages = $stmt->fetchAll(PDO::FETCH_OBJ);
+
 ?>
 
 <?php include './header.php'; ?>
@@ -104,6 +125,28 @@ $client = $stmt->fetch(PDO::FETCH_OBJ);
 			    <p><strong>Description: </strong><?php echo $client->description; ?></p>
 			  </div>
 			</div>
+		</div>
+
+		<div class="col-md-12">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Subject</th>
+						<th>Message</th>
+						<th>Date</th>
+						<th>File</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach($messages as $message): ?>
+					<tr>
+						<td><?php echo $message->subject; ?></td>
+						<td><?php echo $message->message; ?></td>
+						<td><?php echo $message->date; ?></td>
+						<td><img src="<?php echo $message->file; ?>" alt=""></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>
